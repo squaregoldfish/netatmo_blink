@@ -10,54 +10,55 @@ PRESSURE_ROOM = 'Living Room'
 # Temperature colours from BBC Weather
 # https://www.bbc.com/weather/features/66293839
 TEMP_SCALE = [
-    {"value": -22, "color": [29, 71, 152]},
-    {"value": -16, "color": [20, 98, 167]},
-    {"value": -11, "color": [20, 117, 180]},
-    {"value":  -6, "color": [54, 138, 199]},
-    {"value":  -3, "color": [63, 163, 218]},
-    {"value":   0, "color": [80, 191, 236]},
-    {"value":   1, "color": [174, 221, 214]},
-    {"value":   3, "color": [168, 213, 175]},
-    {"value":   5, "color": [168, 213, 175]},
-    {"value":   7, "color": [174, 211, 82]},
-    {"value":   9, "color": [208, 217, 62]},
-    {"value":  11, "color": [254, 221, 4]},
-    {"value":  13, "color": [253, 201, 16]},
-    {"value":  15, "color": [253, 201, 16]},
-    {"value":  17, "color": [250, 163, 28]},
-    {"value":  19, "color": [246, 139, 29]},
-    {"value":  21, "color": [246, 139, 29]},
-    {"value":  25, "color": [239, 79, 58]},
-    {"value":  30, "color": [237, 42, 40]},
-    {"value":  36, "color": [237, 42, 40]},
-    {"value":  41, "color": [156, 26, 29]}
+    {"value": -22, "color": [ 29,  70, 154]},
+    {"value": -16, "color": [ 20,  98, 169]},
+    {"value": -11, "color": [ 22, 116, 182]},
+    {"value":  -6, "color": [ 54, 138, 199]},
+    {"value":  -3, "color": [ 63, 163, 218]},
+    {"value":   0, "color": [ 78, 192, 238]},
+    {"value":   1, "color": [174, 220, 216]},
+    {"value":   3, "color": [168, 214, 173]},
+    {"value":   5, "color": [158, 208, 127]},
+    {"value":   7, "color": [174, 211,  82]},
+    {"value":   9, "color": [208, 217,  62]},
+    {"value":  11, "color": [252, 222,   4]},
+    {"value":  13, "color": [251, 203,  12]},
+    {"value":  15, "color": [252, 183,  22]},
+    {"value":  17, "color": [250, 163,  26]},
+    {"value":  19, "color": [246, 138,  31]},
+    {"value":  21, "color": [242, 106,  47]},
+    {"value":  25, "color": [236,  81,  57]},
+    {"value":  30, "color": [237,  42,  42]},
+    {"value":  36, "color": [195,  32,  39]},
+    {"value":  41, "color": [155,  27,  29]}
 ]
 
 # Pressure scale from 850 to 1050, using the
 # same colours as the temperature scale
 PRESSURE_SCALE = [
-    {"value":  850, "color": [29, 71, 152]},
-    {"value":  860, "color": [20, 98, 167]},
-    {"value":  870, "color": [20, 117, 180]},
-    {"value":  880, "color": [54, 138, 199]},
-    {"value":  890, "color": [63, 163, 218]},
-    {"value":  900, "color": [80, 191, 236]},
-    {"value":  910, "color": [174, 221, 214]},
-    {"value":  920, "color": [168, 213, 175]},
-    {"value":  930, "color": [168, 213, 175]},
-    {"value":  940, "color": [174, 211, 82]},
-    {"value":  950, "color": [208, 217, 62]},
-    {"value":  960, "color": [254, 221, 4]},
-    {"value":  970, "color": [253, 201, 16]},
-    {"value":  980, "color": [253, 201, 16]},
-    {"value":  990, "color": [250, 163, 28]},
-    {"value": 1000, "color": [246, 139, 29]},
-    {"value": 1010, "color": [246, 139, 29]},
-    {"value": 1020, "color": [239, 79, 58]},
-    {"value": 1030, "color": [237, 42, 40]},
-    {"value": 1040, "color": [237, 42, 40]},
-    {"value": 1050, "color": [156, 26, 29]}
+    {"value":  900.0, "color": [ 29,  70, 154]},
+    {"value":  907.5, "color": [ 20,  98, 169]},
+    {"value":  915.0, "color": [ 22, 116, 182]},
+    {"value":  922.5, "color": [ 54, 138, 199]},
+    {"value":  930.0, "color": [ 63, 163, 218]},
+    {"value":  937.5, "color": [ 78, 192, 238]},
+    {"value":  945.0, "color": [174, 220, 216]},
+    {"value":  952.5, "color": [168, 214, 173]},
+    {"value":  960.0, "color": [158, 208, 127]},
+    {"value":  967.5, "color": [174, 211,  82]},
+    {"value":  975.0, "color": [208, 217,  62]},
+    {"value":  982.5, "color": [252, 222,   4]},
+    {"value":  990.0, "color": [251, 203,  12]},
+    {"value":  997.5, "color": [252, 183,  22]},
+    {"value": 1005.0, "color": [250, 163,  26]},
+    {"value": 1012.5, "color": [246, 138,  31]},
+    {"value": 1020.0, "color": [242, 106,  47]},
+    {"value": 1027.5, "color": [236,  81,  57]},
+    {"value": 1035.0, "color": [237,  42,  42]},
+    {"value": 1042.5, "color": [195,  32,  39]},
+    {"value": 1050.0, "color": [155,  27,  29]}
 ]
+
 
 def _interpolate_color(color1, color2, proportion):
   return round(color1 + (color2 - color1) * proportion)
@@ -110,8 +111,8 @@ with blink1() as blink:
         authorization = lnetatmo.ClientAuth()
         weather_data = lnetatmo.WeatherStationData(authorization)
 
-        temperature = weather_data.lastData()[config['temp_room']]['Temperature']
-        pressure = weather_data.lastData()[config['pressure_room']]['Pressure']
+        temperature = float(weather_data.lastData()[config['temp_room']]['Temperature'])
+        pressure = float(weather_data.lastData()[config['pressure_room']]['Pressure'])
 
         if config['debug']:
             print(f'{temperature}, {pressure}')
