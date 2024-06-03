@@ -1,4 +1,6 @@
 temp_room = 'xx:xx:xx:xx:xx:xx'
 pressure_room = 'Pressure Room'
 update_interval = 900
+temperature_output_file = ''
+pressure_output_file = ''
 debug = true
