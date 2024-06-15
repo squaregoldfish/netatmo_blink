@@ -135,6 +135,9 @@ with blink1() as blink:
                 pressure_color = get_color(pressure, PRESSURE_SCALE, 'hex')
                 out.write(f'{pressure}hPa\n\n{pressure_color}')
 
+            if config['debug']:
+                print(f'{temp_color}, {pressure_color}\n')
+
 
         except Exception as e:
             print(e)
