@@ -92,9 +92,13 @@ def get_color(value, scale, type):
             green_value = _interpolate_color(prev_entry['color'][1], next_entry['color'][1], color_proportion)
             blue_value = _interpolate_color(prev_entry['color'][2], next_entry['color'][2], color_proportion)
 
-            result = f'#{to_hex(red_value)}{to_hex(green_value)}{to_hex(blue_value)}' if type == 'hex' else [red_value, green_value, blue_value]
+            result = [red_value, green_value, blue_value]
 
-    return result
+    if type == 'hex':
+        return f'#{to_hex(result[0])}{to_hex(result[1])}{to_hex(result[2])}'
+    else:
+        return result
+
 
 def to_hex(decimal):
     result = hex(decimal).split('x')[-1]
@@ -114,6 +118,10 @@ with open('config.toml') as c:
     config = toml.load(c)
 
 with blink1() as blink:
+
+    print(get_color(13.9, TEMP_SCALE, 'hex'))
+
+    exit()
     authorization = lnetatmo.ClientAuth()
     while True:
         try:
