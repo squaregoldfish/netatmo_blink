@@ -118,10 +118,6 @@ with open('config.toml') as c:
     config = toml.load(c)
 
 with blink1() as blink:
-
-    print(get_color(13.9, TEMP_SCALE, 'hex'))
-
-    exit()
     authorization = lnetatmo.ClientAuth()
     while True:
         try:
