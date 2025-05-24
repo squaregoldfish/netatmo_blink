@@ -1,39 +1,35 @@
 from blink1.blink1 import blink1
 import time
-import lnetatmo
 import toml
-
-UPDATE_INTERVAL = 900
-DEBUG = True
-PRESSURE_ROOM = 'Living Room'
+import requests
+import traceback
 
 # Colours from BBC Weather
 # https://www.bbc.com/weather/features/66293839
 
-# Scaled for records from Bergen, Norway
-# and Ostend, Belgium
+# Scaled for records from Bruges, Belgium
 TEMP_SCALE = [
-    {"value": -18.0, "color": [ 29,  70, 154]},
-    {"value": -15.1, "color": [ 20,  98, 169]},
-    {"value": -12.2, "color": [ 22, 116, 182]},
-    {"value":  -9.3, "color": [ 54, 138, 199]},
-    {"value":  -6.4, "color": [ 63, 163, 218]},
-    {"value":  -3.5, "color": [ 78, 192, 238]},
-    {"value":  -0.6, "color": [174, 220, 216]},
-    {"value":   2.3, "color": [168, 214, 173]},
-    {"value":   5.2, "color": [158, 208, 127]},
-    {"value":   8.1, "color": [174, 211,  82]},
-    {"value":  11.0, "color": [208, 217,  62]},
-    {"value":  13.9, "color": [252, 222,   4]},
-    {"value":  16.8, "color": [251, 203,  12]},
-    {"value":  19.7, "color": [252, 183,  22]},
-    {"value":  22.6, "color": [250, 163,  26]},
-    {"value":  25.5, "color": [246, 138,  31]},
-    {"value":  28.4, "color": [242, 106,  47]},
-    {"value":  31.3, "color": [236,  81,  57]},
-    {"value":  34.2, "color": [237,  42,  42]},
-    {"value":  37.1, "color": [195,  32,  39]},
-    {"value":  40.0, "color": [155,  27,  29]}
+    {"value":  -4.0, "color": [ 29,  70, 154]},
+    {"value":  -2.0, "color": [ 20,  98, 169]},
+    {"value":   0.0, "color": [ 22, 116, 182]},
+    {"value":   2.0, "color": [ 54, 138, 199]},
+    {"value":   4.0, "color": [ 63, 163, 218]},
+    {"value":   6.0, "color": [ 78, 192, 238]},
+    {"value":   8.0, "color": [174, 220, 216]},
+    {"value":  10.0, "color": [168, 214, 173]},
+    {"value":  12.0, "color": [158, 208, 127]},
+    {"value":  14.0, "color": [174, 211,  82]},
+    {"value":  16.0, "color": [208, 217,  62]},
+    {"value":  18.0, "color": [252, 222,   4]},
+    {"value":  20.0, "color": [251, 203,  12]},
+    {"value":  22.0, "color": [252, 183,  22]},
+    {"value":  24.0, "color": [250, 163,  26]},
+    {"value":  26.0, "color": [246, 138,  31]},
+    {"value":  28.0, "color": [242, 106,  47]},
+    {"value":  30.0, "color": [236,  81,  57]},
+    {"value":  32.0, "color": [237,  42,  42]},
+    {"value":  34.0, "color": [195,  32,  39]},
+    {"value":  36.0, "color": [155,  27,  29]}
 ]
 
 # Pressure scale from 850 to 1050, using the
@@ -118,16 +114,17 @@ with open('config.toml') as c:
     config = toml.load(c)
 
 with blink1() as blink:
-    authorization = lnetatmo.ClientAuth()
     while True:
         try:
-            weather_data = lnetatmo.WeatherStationData(authorization)
+            response = requests.get(config['source_url'])
+            response.raise_for_status()
+            netatmo_json = response.json()['devices'][0]
 
-            temperature = float(weather_data.lastData()[config['temp_room']]['Temperature'])
-            pressure = float(weather_data.lastData()[config['pressure_room']]['Pressure'])
+            temperature = float(netatmo_json['modules'][0]['dashboard_data']['Temperature'])
+            pressure = float(netatmo_json['dashboard_data']['Pressure'])
 
             if config['debug']:
-                print(f'{temperature}, {pressure}')
+                print(f'Values: {temperature}, {pressure}')
                 
             set_color(blink, temperature, pressure)
 
@@ -144,6 +141,6 @@ with blink1() as blink:
 
 
         except Exception as e:
-            print(e)
+            print(traceback.format_exc())
 
         time.sleep(int(config['update_interval']))

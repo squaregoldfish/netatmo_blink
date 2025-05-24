@@ -5,8 +5,8 @@ name = "pypi"
 
 [packages]
 blink1 = "*"
-lnetatmo = "*"
 toml = "*"
+requests = "*"
 
 [dev-packages]
 
