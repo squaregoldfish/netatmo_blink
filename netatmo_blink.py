@@ -4,60 +4,77 @@ import toml
 import requests
 import traceback
 
+def calc_steps(min, max, steps):
+    step_size = (max - min) / (steps - 1)
+    return [min + i * step_size for i in range(steps)]
+
 # Colours from BBC Weather
 # https://www.bbc.com/weather/features/66293839
 
 # Scaled for records from Bruges, Belgium
+
+TEMP_VALUES = calc_steps(-4, 37, 21)
 TEMP_SCALE = [
-    {"value":  -4.0, "color": [ 29,  70, 154]},
-    {"value":  -2.0, "color": [ 20,  98, 169]},
-    {"value":   0.0, "color": [ 22, 116, 182]},
-    {"value":   2.0, "color": [ 54, 138, 199]},
-    {"value":   4.0, "color": [ 63, 163, 218]},
-    {"value":   6.0, "color": [ 78, 192, 238]},
-    {"value":   8.0, "color": [174, 220, 216]},
-    {"value":  10.0, "color": [168, 214, 173]},
-    {"value":  12.0, "color": [158, 208, 127]},
-    {"value":  14.0, "color": [174, 211,  82]},
-    {"value":  16.0, "color": [208, 217,  62]},
-    {"value":  18.0, "color": [252, 222,   4]},
-    {"value":  20.0, "color": [251, 203,  12]},
-    {"value":  22.0, "color": [252, 183,  22]},
-    {"value":  24.0, "color": [250, 163,  26]},
-    {"value":  26.0, "color": [246, 138,  31]},
-    {"value":  28.0, "color": [242, 106,  47]},
-    {"value":  30.0, "color": [236,  81,  57]},
-    {"value":  32.0, "color": [237,  42,  42]},
-    {"value":  34.0, "color": [195,  32,  39]},
-    {"value":  36.0, "color": [155,  27,  29]}
+    {"value": TEMP_VALUES[0], "color": [ 29,  70, 154]},
+    {"value": TEMP_VALUES[1], "color": [ 20,  98, 169]},
+    {"value": TEMP_VALUES[2], "color": [ 22, 116, 182]},
+    {"value": TEMP_VALUES[3], "color": [ 54, 138, 199]},
+    {"value": TEMP_VALUES[4], "color": [ 63, 163, 218]},
+    {"value": TEMP_VALUES[5], "color": [ 78, 192, 238]},
+    {"value": TEMP_VALUES[6], "color": [174, 220, 216]},
+    {"value": TEMP_VALUES[7], "color": [168, 214, 173]},
+    {"value": TEMP_VALUES[8], "color": [158, 208, 127]},
+    {"value": TEMP_VALUES[9], "color": [174, 211,  82]},
+    {"value": TEMP_VALUES[10], "color": [208, 217,  62]},
+    {"value": TEMP_VALUES[11], "color": [252, 222,   4]},
+    {"value": TEMP_VALUES[12], "color": [251, 203,  12]},
+    {"value": TEMP_VALUES[13], "color": [252, 183,  22]},
+    {"value": TEMP_VALUES[14], "color": [250, 163,  26]},
+    {"value": TEMP_VALUES[15], "color": [246, 138,  31]},
+    {"value": TEMP_VALUES[16], "color": [242, 106,  47]},
+    {"value": TEMP_VALUES[17], "color": [236,  81,  57]},
+    {"value": TEMP_VALUES[18], "color": [237,  42,  42]},
+    {"value": TEMP_VALUES[18], "color": [195,  32,  39]},
+    {"value": TEMP_VALUES[20], "color": [155,  27,  29]}
 ]
 
-# Pressure scale from 850 to 1050, using the
+# Pressure scale using the
 # same colours as the temperature scale
+PRESSURE_VALUES = calc_steps(970, 1040, 21)
 PRESSURE_SCALE = [
-    {"value":  950.0, "color": [ 29,  70, 154]},
-    {"value":  954.5, "color": [ 20,  98, 169]},
-    {"value":  959.0, "color": [ 22, 116, 182]},
-    {"value":  963.5, "color": [ 54, 138, 199]},
-    {"value":  968.0, "color": [ 63, 163, 218]},
-    {"value":  972.5, "color": [ 78, 192, 238]},
-    {"value":  977.0, "color": [174, 220, 216]},
-    {"value":  981.5, "color": [168, 214, 173]},
-    {"value":  986.0, "color": [158, 208, 127]},
-    {"value":  990.5, "color": [174, 211,  82]},
-    {"value":  995.0, "color": [208, 217,  62]},
-    {"value":  999.5, "color": [252, 222,   4]},
-    {"value": 1004.0, "color": [251, 203,  12]},
-    {"value": 1008.5, "color": [252, 183,  22]},
-    {"value": 1013.0, "color": [250, 163,  26]},
-    {"value": 1017.5, "color": [246, 138,  31]},
-    {"value": 1022.0, "color": [242, 106,  47]},
-    {"value": 1026.5, "color": [236,  81,  57]},
-    {"value": 1031.0, "color": [237,  42,  42]},
-    {"value": 1035.5, "color": [195,  32,  39]},
-    {"value": 1040.0, "color": [155,  27,  29]}
+    {"value": PRESSURE_VALUES[0], "color": [ 29,  70, 154]},
+    {"value": PRESSURE_VALUES[1], "color": [ 20,  98, 169]},
+    {"value": PRESSURE_VALUES[2], "color": [ 22, 116, 182]},
+    {"value": PRESSURE_VALUES[3], "color": [ 54, 138, 199]},
+    {"value": PRESSURE_VALUES[4], "color": [ 63, 163, 218]},
+    {"value": PRESSURE_VALUES[5], "color": [ 78, 192, 238]},
+    {"value": PRESSURE_VALUES[6], "color": [174, 220, 216]},
+    {"value": PRESSURE_VALUES[7], "color": [168, 214, 173]},
+    {"value": PRESSURE_VALUES[8], "color": [158, 208, 127]},
+    {"value": PRESSURE_VALUES[9], "color": [174, 211,  82]},
+    {"value": PRESSURE_VALUES[10], "color": [208, 217,  62]},
+    {"value": PRESSURE_VALUES[11], "color": [252, 222,   4]},
+    {"value": PRESSURE_VALUES[12], "color": [251, 203,  12]},
+    {"value": PRESSURE_VALUES[13], "color": [252, 183,  22]},
+    {"value": PRESSURE_VALUES[14], "color": [250, 163,  26]},
+    {"value": PRESSURE_VALUES[15], "color": [246, 138,  31]},
+    {"value": PRESSURE_VALUES[16], "color": [242, 106,  47]},
+    {"value": PRESSURE_VALUES[17], "color": [236,  81,  57]},
+    {"value": PRESSURE_VALUES[18], "color": [237,  42,  42]},
+    {"value": PRESSURE_VALUES[19], "color": [195,  32,  39]},
+    {"value": PRESSURE_VALUES[20], "color": [155,  27,  29]}
 ]
 
+# CO2 scale using the
+# same colours as the temperature scale
+CO2_VALUES = calc_steps(400, 1000, 5)
+CO2_SCALE = [
+    {"value": CO2_VALUES[0], "color": [  0,   0, 255]},
+    {"value": CO2_VALUES[1], "color": [  0, 255,   0]},
+    {"value": CO2_VALUES[2], "color": [255, 128,  50]},
+    {"value": CO2_VALUES[3], "color": [255,   0,   0]},
+    {"value": CO2_VALUES[4], "color": [200,   0,   0]},
+]
 
 def _interpolate_color(color1, color2, proportion):
   return round(color1 + (color2 - color1) * proportion)
@@ -101,14 +118,14 @@ def to_hex(decimal):
     return f'0{result}' if len(result) == 1 else result
 
 
-def set_color(blink, temp, pressure):
+def set_color(blink, temp, pressure, co2):
     temp_rgb = get_color(temp, TEMP_SCALE, 'rgb')
-    pressure_rgb = get_color(pressure, PRESSURE_SCALE, 'rgb')
+    #pressure_rgb = get_color(pressure, PRESSURE_SCALE, 'rgb')
+    co2_rgb = get_color(co2, CO2_SCALE, 'rgb')
     
     blink.fade_to_rgb(1000, temp_rgb[0], temp_rgb[1], temp_rgb[2], 1)
-    blink.fade_to_rgb(1000, pressure_rgb[0], pressure_rgb[1], pressure_rgb[2], 2)
-
-
+    #blink.fade_to_rgb(1000, pressure_rgb[0], pressure_rgb[1], pressure_rgb[2], 2)
+    blink.fade_to_rgb(1000, co2_rgb[0], co2_rgb[1], co2_rgb[2], 2)
 
 with open('config.toml') as c:
     config = toml.load(c)
@@ -122,11 +139,14 @@ with blink1() as blink:
 
             temperature = float(netatmo_json['modules'][0]['dashboard_data']['Temperature'])
             pressure = float(netatmo_json['dashboard_data']['Pressure'])
+            co2 = int(netatmo_json['modules'][1]['dashboard_data']['CO2'])
+            rain = float(netatmo_json['modules'][2]['dashboard_data']['sum_rain_24'])
+            rain1 = float(netatmo_json['modules'][2]['dashboard_data']['sum_rain_1'])
 
             if config['debug']:
-                print(f'Values: {temperature}, {pressure}')
+                print(f'{temperature}, {pressure}, {co2}, {rain} {rain1:.1f}')
                 
-            set_color(blink, temperature, pressure)
+            set_color(blink, temperature, pressure, co2)
 
             with open(config['temperature_output_file'], 'w') as out:
                 temp_color = get_color(temperature, TEMP_SCALE, 'hex')
@@ -136,8 +156,18 @@ with blink1() as blink:
                 pressure_color = get_color(pressure, PRESSURE_SCALE, 'hex')
                 out.write(f'{pressure}hPa\n\n{pressure_color}')
 
+            with open(config['co2_output_file'], 'w') as out:
+                co2_color = get_color(co2, CO2_SCALE, 'hex')
+                out.write(f'{co2}ppm\n\n{co2_color}')
+
+            with open(config['rain_output_file'], 'w') as out:
+                if rain1 > 0:
+                    out.write(f'({rain1:.1f}) {rain}mm\n\n#0cc2dd')
+                else:
+                    out.write(f'{rain}mm\n\n#0cc2dd')
+
             if config['debug']:
-                print(f'{temp_color}, {pressure_color}\n')
+                print(f'{temp_color}, {pressure_color}, {co2_color}\n')
 
 
         except Exception as e:
